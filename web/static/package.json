@@ -17,9 +17,9 @@
     "babel-preset-react": "^6.23.0",
     "babel-preset-stage-0": "^6.22.0",
     "css-loader": "^0.27.1",
-    "extract-text-webpack-plugin": "~2.1.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "style-loader": "^0.13.2",
-    "webpack": "^1.14.0"
+    "webpack": "^2.2.1"
   },
   "dependencies": {
     "es6-promise": "^4.1.0",

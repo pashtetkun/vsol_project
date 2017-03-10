@@ -32,7 +32,7 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<MuiThemeProvider>
-					<div> It is new VSOL </div>			
+					<div> It is new VSOL site </div>			
 				</ MuiThemeProvider>
 			</div>
 		)
