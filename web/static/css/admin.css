@@ -1,0 +1,20 @@
+.wrapper-countries-table {
+	margin-left: 50px;
+	width: 250px!important;
+}
+
+.wrapper-countries-table-header-1 {
+	width: 50px;
+}
+
+.wrapper-countries-table-header-2 {
+	width: 200px;
+}
+
+.wrapper-countries-table-column-index {
+	width: 50px;
+}
+
+.wrapper-countries-table-column-name {
+	width: 200px;
+}

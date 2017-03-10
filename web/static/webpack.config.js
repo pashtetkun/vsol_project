@@ -8,7 +8,7 @@ module.exports = {
     	//bundle2: ['./app/photographer/index.js'],
         //bundle3: ['./app/admin/index.js']
     },
-    devtool: 'sourcemaps',
+    devtool: 'source-map',
     cache: true,
     //debug: true,
     output: {
@@ -25,7 +25,7 @@ module.exports = {
                 exclude: /(node_modules)/,
                 loader: 'babel-loader',
                 query: {
-                    presets: [['es2015', {"modules":false}], 'react', 'stage-0'],
+                    presets: [['es2015', {"modules":false}], 'react', 'stage-1'],
                     plugins: ['transform-object-assign', 'transform-class-properties']
                 }
             },
@@ -38,8 +38,9 @@ module.exports = {
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
             compress: {
-                warnings: false
-            }
+                warnings: false,
+            },
+            sourceMap: true,
         }),
         //new ExtractTextPlugin('[name].css'),
         new webpack.DefinePlugin({

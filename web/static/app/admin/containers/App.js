@@ -1,7 +1,9 @@
 import React from 'react'
 import EventEmitter from 'wolfy87-eventemitter'
-//import localizations from '../localizations/localizations'
+import localizations from '../localizations/localizations'
 //import * as appActions from '../actions/AppActions'
+import HiddenCountries from '../components/HiddenCountries'
+import RaisedButton from 'material-ui/RaisedButton'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -32,7 +34,9 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<MuiThemeProvider>
-					<div> It is new VSOL site </div>			
+					<div>
+						<HiddenCountries />
+					</div>	
 				</ MuiThemeProvider>
 			</div>
 		)
