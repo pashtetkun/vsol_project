@@ -3,13 +3,22 @@ import LocalizedStrings from 'react-localization';
 
 let localizations = new LocalizedStrings({
   en:{
-	  //ToolBarTabs
-	  toolBarTabsUsers:"Users",
+	  //HiddenCountries
+	  hiddenCountriesShowBtn:"Show hidden countries",
+
+	  //CountriesTable
+	  countriesTableHeaderIndex:"№",
+	  countriesTableHeaderCountry:"Country",
+	  countriesTableHeaderCount:"Count",
   },
   ru: {
-	  
-	  //ToolBarTabs
-	  toolBarTabsUsers:"Пользователи",
+	  //HiddenCountries
+	  hiddenCountriesShowBtn:"Показать скрытые клубы",
+
+	  //CountriesTable
+	  countriesTableHeaderIndex:"№",
+	  countriesTableHeaderCountry:"Страна",
+	  countriesTableHeaderCount:"Кол-во",
   }
 });
 

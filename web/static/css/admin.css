@@ -1,20 +1,44 @@
 .wrapper-countries-table {
-	margin-left: 50px;
-	width: 250px!important;
+	margin-left: 200px;
+	width: 280px!important;
 }
 
-.wrapper-countries-table-header-1 {
+.wrapper-countries-table-header {
+
+}
+
+.wrapper-countries-table-header-row {
+
+}
+
+.wrapper-countries-table-header-index {
+	width: 30px;
+}
+
+.wrapper-countries-table-header-country {
+	width: 200px;
+}
+
+.wrapper-countries-table-header-count {
 	width: 50px;
 }
 
-.wrapper-countries-table-header-2 {
-	width: 200px;
+.wrapper-countries-table-body {
+
+}
+
+.wrapper-countries-table-row {
+	height: 10px;
 }
 
 .wrapper-countries-table-column-index {
-	width: 50px;
+	width: 30px;
 }
 
-.wrapper-countries-table-column-name {
+.wrapper-countries-table-column-country {
 	width: 200px;
+}
+
+.wrapper-countries-table-column-count {
+	width: 50px;
 }

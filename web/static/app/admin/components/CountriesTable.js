@@ -14,19 +14,22 @@ export default class CountriesTable extends React.Component {
 		
 		return (
 				<div>
-					<Table className="wrapper-countries-table">
+					<Table className="wrapper-countries-table" height='400px'>
 					
 						<TableHeader className="wrapper-countries-table-header"
 							displaySelectAll={false}
 			            	adjustForCheckbox={false}
 						>
 							<TableRow className="wrapper-countries-table-header-row">							
-								<TableHeaderColumn className={"wrapper-countries-table-header-1"}>
-									index
+								<TableHeaderColumn className={"wrapper-countries-table-header-index"}>
+									{localizations.countriesTableHeaderIndex}
 								</TableHeaderColumn>
-								<TableHeaderColumn className={"wrapper-countries-table-header-2"}>
-									name
-								</TableHeaderColumn>					
+								<TableHeaderColumn className={"wrapper-countries-table-header-country"}>
+									{localizations.countriesTableHeaderCountry}
+								</TableHeaderColumn>
+								<TableHeaderColumn className={"wrapper-countries-table-header-count"}>
+									{localizations.countriesTableHeaderCount}
+								</TableHeaderColumn>				
 						    </TableRow>
 						</TableHeader>
 						
@@ -37,14 +40,18 @@ export default class CountriesTable extends React.Component {
 						
 							{rows.map((row, index) => (
 								<TableRow className="wrapper-countries-table-row"
-									key={("" + row)}
+									key={("" + row.country)}
 								>
 									<TableRowColumn className="wrapper-countries-table-column-index">
-										{index}
+										{index + 1}
 									</TableRowColumn>
 																		
-									<TableRowColumn className="wrapper-countries-table-column-name">
-										{row}
+									<TableRowColumn className="wrapper-countries-table-column-country">
+										{row.country}
+									</TableRowColumn>
+
+									<TableRowColumn className="wrapper-countries-table-column-count">
+										{row.clubs.length}
 									</TableRowColumn>
 								</TableRow>
 			 				))}	
