@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import localizations from '../localizations/localizations'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import { Link } from 'react-router'
 
 
 export default class CountriesTable extends React.Component {
@@ -47,7 +48,7 @@ export default class CountriesTable extends React.Component {
 									</TableRowColumn>
 																		
 									<TableRowColumn className="wrapper-countries-table-column-country">
-										{row.country}
+										<Link to={("/country/"+index)}>{row.country}</Link>
 									</TableRowColumn>
 
 									<TableRowColumn className="wrapper-countries-table-column-count">

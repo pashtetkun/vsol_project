@@ -34,9 +34,7 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<MuiThemeProvider>
-					<div>
-						<HiddenCountries />
-					</div>	
+					{this.props.children}	
 				</ MuiThemeProvider>
 			</div>
 		)
