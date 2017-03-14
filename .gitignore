@@ -4,3 +4,5 @@
 /venv/
 /web/static/node_modules/
 /web/static/dist/
+/web/__pycache__/
+/web/mod_main/__pycache__/
