@@ -10,6 +10,10 @@ db = MongoEngine(app)
 def not_found(error):
     return render_template('404.html'), 404
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 from web.mod_main.controllers import mod_main as main_module
 
 # Register blueprint(s)

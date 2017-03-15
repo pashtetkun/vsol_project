@@ -3,9 +3,9 @@ from flask import Blueprint, render_template, Response
 #from web.mod_main.models import HiddenCountry
 
 import json
-import web.mod_main.hidden_teams
+from web.mod_main import hidden_teams
 
-mod_main = Blueprint('main', __name__, url_prefix='/')
+mod_main = Blueprint('main', __name__, url_prefix='')
 
 def to_json(data):
     return json.dumps(data) + "\n"
@@ -16,10 +16,6 @@ def resp(code, data):
         mimetype="application/json",
         response=to_json(data)
     )
-
-@mod_main.route('/')
-def index():
-    return render_template('index.html')
 
 @mod_main.route('/adminApi/hiddenCountries', methods=['GET'])
 def get_hiddenCountries():

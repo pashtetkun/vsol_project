@@ -23,7 +23,7 @@ class HiddenCountries extends React.Component {
 		//var rows = !data ? [] : Object.keys(data)
 		
 		return (
-				<div>
+				<div className="wrapper-hidden-countries">
 					<RaisedButton label={localizations.hiddenCountriesShowBtn} primary={true} onTouchTap={this.showHandler.bind(that)}/>
 					<CountriesTable	rows={rows} />		        
 			    </div>
