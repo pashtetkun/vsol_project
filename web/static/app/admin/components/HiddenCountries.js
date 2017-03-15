@@ -3,15 +3,21 @@ import ReactDOM from 'react-dom';
 import localizations from '../localizations/localizations'
 import CountriesTable from './CountriesTable'
 import RaisedButton from 'material-ui/RaisedButton'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
 import * as hiddenCountriesActions from '../actions/HiddenCountriesActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 class HiddenCountries extends React.Component {
 	
-	showHandler(e){
+	componentDidMount() {
+		var that = this
+		this.props.hiddenCountriesActions.getHiddenCountries()
+	}
+
+	reloadHandler(e){
 		e.preventDefault()
-		this.props.hiddenCountriesActions.getHiddenCountries()	
+		this.props.hiddenCountriesActions.postHiddenCountries()
 	}
 
 	render() {
@@ -21,10 +27,17 @@ class HiddenCountries extends React.Component {
 		//var rows = this.props.rows
 		var rows = this.props.hiddenCountries
 		//var rows = !data ? [] : Object.keys(data)
+		var refreshStatus = this.props.refreshStatus
 		
 		return (
 				<div className="wrapper-hidden-countries">
-					<RaisedButton label={localizations.hiddenCountriesShowBtn} primary={true} onTouchTap={this.showHandler.bind(that)}/>
+					<RaisedButton label={localizations.hiddenCountriesReloadBtn} primary={true} onTouchTap={this.reloadHandler.bind(that)}/>
+					<RefreshIndicator
+      					size={40}
+      					left={10}
+      					top={0}
+      					status={refreshStatus}
+    				/>
 					<CountriesTable	rows={rows} />		        
 			    </div>
 		)
@@ -34,6 +47,7 @@ class HiddenCountries extends React.Component {
 function mapStateToProps (state) {
 	return {
 		hiddenCountries: state.hiddenCountries.hiddenCountries,
+		refreshStatus: state.hiddenCountries.refreshStatus,
 	}
 }
 

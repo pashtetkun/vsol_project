@@ -17,9 +17,10 @@ def resp(code, data):
         response=to_json(data)
     )
 
-@mod_main.route('/adminApi/hiddenCountries', methods=['GET'])
-def get_hiddenCountries():
-    """dict_clubs = hidden_teams.get_hidden_clubs()
+@mod_main.route('/adminApi/hiddenCountries', methods=['POST'])
+def post_hiddenCountries():
+    dict_clubs = hidden_teams.get_hidden_clubs()
+    HiddenCountry.objects.delete()
     clubs = []
     for k,v in dict_clubs.items():
         club = {}
@@ -31,7 +32,13 @@ def get_hiddenCountries():
             count_clubs=len(v),
             clubs = v
         )
-        hiddenCountry.save()"""
+        hiddenCountry.save()
+
+    return resp(200, {"resultStatus": "SUCCESS"})
+
+    
+@mod_main.route('/adminApi/hiddenCountries', methods=['GET'])
+def get_hiddenCountries():
     hiddenCountries = HiddenCountry.objects
     clubs = []
     for hiddenCountry in hiddenCountries:

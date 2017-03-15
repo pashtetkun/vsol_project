@@ -4,7 +4,7 @@ import LocalizedStrings from 'react-localization';
 let localizations = new LocalizedStrings({
   en:{
 	  //HiddenCountries
-	  hiddenCountriesShowBtn:"Show hidden countries",
+	  hiddenCountriesReloadBtn:"Reload hidden countries",
 
 	  //CountriesTable
 	  countriesTableHeaderIndex:"№",
@@ -13,7 +13,7 @@ let localizations = new LocalizedStrings({
   },
   ru: {
 	  //HiddenCountries
-	  hiddenCountriesShowBtn:"Показать скрытые клубы",
+	  hiddenCountriesReloadBtn:"Перезалить скрытые клубы",
 
 	  //CountriesTable
 	  countriesTableHeaderIndex:"№",
