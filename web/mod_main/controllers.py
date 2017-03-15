@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, Response
 #from web.mod_main.models import HiddenCountry
 
 import json
-import mod_main.hidden_teams
+import web.mod_main.hidden_teams
 
 mod_main = Blueprint('main', __name__, url_prefix='/')
 
