@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 from flask import Blueprint, render_template, Response
-#from web.mod_main.models import HiddenCountry
+from web.mod_main.models import HiddenCountry
 
 import json
 from web.mod_main import hidden_teams
@@ -19,16 +19,27 @@ def resp(code, data):
 
 @mod_main.route('/adminApi/hiddenCountries', methods=['GET'])
 def get_hiddenCountries():
-    #countries = []
-    #countries.append('Россия')
-    #countries.append('Япония')
-    dict_clubs = hidden_teams.get_hidden_clubs()
+    """dict_clubs = hidden_teams.get_hidden_clubs()
     clubs = []
     for k,v in dict_clubs.items():
         club = {}
         club['country'] = k
         club['clubs'] = v
         clubs.append(club)
+        hiddenCountry = HiddenCountry(
+            name=k,
+            count_clubs=len(v),
+            clubs = v
+        )
+        hiddenCountry.save()"""
+    hiddenCountries = HiddenCountry.objects
+    clubs = []
+    for hiddenCountry in hiddenCountries:
+        club = {}
+        club['country'] = hiddenCountry.name
+        club['clubs'] = hiddenCountry.clubs
+        clubs.append(club)
+
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
 
