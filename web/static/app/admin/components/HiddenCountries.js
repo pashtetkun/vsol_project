@@ -8,6 +8,20 @@ import * as hiddenCountriesActions from '../actions/HiddenCountriesActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+const style = {
+  container: {
+    position: 'relative',
+  },
+  refresh: {
+    position: 'fixed',
+    zIndex: 2000,
+    width: 100,
+    height: 100,
+    background: 'rgba(0,0,0,0.5)',
+    display: 'table',
+  },
+};
+
 class HiddenCountries extends React.Component {
 	
 	componentDidMount() {
@@ -37,6 +51,7 @@ class HiddenCountries extends React.Component {
       					left={10}
       					top={0}
       					status={refreshStatus}
+      					style={style.refresh}
     				/>
 					<CountriesTable	rows={rows} />		        
 			    </div>
