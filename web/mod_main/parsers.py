@@ -1,12 +1,33 @@
 import collections
 import lxml.html as html
 
+HIDDEN_TEAMS_URL = 'http://virtualsoccer.ru/teams_hidden.php'
+COUNTRIES_URL = 'http://virtualsoccer.ru/teams.php'
+
+def get_countries():
+    countries = []
+    page = html.parse(COUNTRIES_URL)
+    table = page.getroot().find_class('tbl').pop()
+    rows = table.getchildren()
+    for count, row in enumerate(rows):
+        if ((count < 2) or (count == len(rows) - 1)):
+            continue
+
+        for i, col in enumerate(row):
+            if (i == 0):
+                name = col.attrib['title']
+                style = col.find("div").attrib['style']
+                countries.append(name)
+                print(name, style)
+
+    return countries
+
+
 def get_hidden_clubs():
-    base_url = 'http://virtualsoccer.ru/teams_hidden.php'
     numbers = 22
     clubs = {}
     for num in range(numbers):
-        page = html.parse(base_url + "?page=" + str(num + 1))
+        page = html.parse("%s?page=%d" % (HIDDEN_TEAMS_URL, num))
         table = page.getroot().find_class('tbl').pop()
         rows = table.getchildren()
         for count, row in enumerate(rows):
@@ -39,9 +60,11 @@ def get_hidden_clubs():
     return od
 
 if __name__ == "__main__":
-    clubs = get_hidden_clubs()
+    '''clubs = get_hidden_clubs()
     for k, v in clubs.items():
         print(k)
 
-    print(clubs["Россия"])
+    print(clubs["Россия"])'''
+
+    get_countries()
     

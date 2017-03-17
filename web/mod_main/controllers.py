@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, Response
 from web.mod_main.models import HiddenCountry
 
 import json
-from web.mod_main import hidden_teams
+from web.mod_main import parsers
 
 mod_main = Blueprint('main', __name__, url_prefix='')
 
@@ -13,13 +13,14 @@ def to_json(data):
 def resp(code, data):
     return Response(
         status=code,
-        mimetype="application/json",
+        #mimetype="application/json",
+        mimetype="text/html",
         response=to_json(data)
     )
 
 @mod_main.route('/adminApi/hiddenCountries', methods=['POST'])
 def post_hiddenCountries():
-    dict_clubs = hidden_teams.get_hidden_clubs()
+    dict_clubs = parsers.get_hidden_clubs()
     HiddenCountry.objects.delete()
     clubs = []
     for k,v in dict_clubs.items():
@@ -49,7 +50,10 @@ def get_hiddenCountries():
 
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
-
+@mod_main.route('/adminApi/countries', methods=['GET'])
+def get_countries():
+    countries = parsers.get_countries()
+    return resp(200, {"resultStatus": "SUCCESS", "result": countries})
 
 if __name__ == "__main__":
     pass

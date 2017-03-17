@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#from flask import url_for
 from web import db
-
 
 class HiddenCountry(db.Document):
     name = db.StringField(max_length=255, required=True)
@@ -20,6 +18,11 @@ class HiddenCountry(db.Document):
         'indexes': [],
         'ordering': ['name']
     }
+
+class Country(db.Document):
+    vsol_id = db.IntField(required=True)
+    name = db.StringField(max_length=255, required=True)
+    sprite_position = db.StringField(max_length=255, required=True)
 
 if __name__ == "__main__":
     pass
