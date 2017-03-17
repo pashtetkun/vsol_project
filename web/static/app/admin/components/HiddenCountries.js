@@ -13,12 +13,14 @@ const style = {
     position: 'relative',
   },
   refresh: {
-    position: 'fixed',
-    zIndex: 2000,
-    width: 100,
-    height: 100,
-    background: 'rgba(0,0,0,0.5)',
-    display: 'table',
+    //position: 'fixed',
+    //zIndex: 2000,
+    //width: 100,
+    //height: 100,
+    //background: 'rgba(0,0,0,0.5)',
+    //display: 'table',
+    display: 'inline-block',
+    position: 'relative',
   },
 };
 
@@ -44,15 +46,19 @@ class HiddenCountries extends React.Component {
 		var refreshStatus = this.props.refreshStatus
 		
 		return (
+				
+
 				<div className="wrapper-hidden-countries">
+					<div style={style.container}>
+						<RefreshIndicator
+      						size={80}
+      						left={screen.availWidth/2}
+      						top={80}
+      						status={refreshStatus}
+      						style={style.refresh}
+    					/>
+    				</div>
 					<RaisedButton label={localizations.hiddenCountriesReloadBtn} primary={true} onTouchTap={this.reloadHandler.bind(that)}/>
-					<RefreshIndicator
-      					size={40}
-      					left={10}
-      					top={0}
-      					status={refreshStatus}
-      					style={style.refresh}
-    				/>
 					<CountriesTable	rows={rows} />		        
 			    </div>
 		)

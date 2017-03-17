@@ -46,3 +46,28 @@
 .wrapper-countries-table-column-count {
 	width: 50px;
 }
+
+
+
+
+.wrapper-country-table {
+	margin-left: 200px;
+	width: 600px!important;
+}
+
+.wrapper-country-table-header-index {
+	width: 10px;
+}
+
+.wrapper-country-table-header-club {
+	width: 200px;
+}
+
+.wrapper-country-table-column-index {
+	width: 10px;
+}
+
+.wrapper-country-table-column-club {
+	width: 200px;
+}
+

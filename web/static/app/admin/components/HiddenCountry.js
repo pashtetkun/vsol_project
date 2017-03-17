@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import HiddenCountryTable from './HiddenCountryTable'
 import localizations from '../localizations/localizations'
 import { connect } from 'react-redux'
 
@@ -14,9 +15,7 @@ class HiddenCountry extends React.Component {
 		
 		return (
 				<div>
-					{clubs.map((club, indx) => (
-						<p key={indx}>{club}</p>
-					))}
+					<HiddenCountryTable rows={clubs} />
 			    </div>
 		)
 	}
