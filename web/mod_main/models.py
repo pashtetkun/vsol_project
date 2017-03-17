@@ -22,7 +22,7 @@ class HiddenCountry(db.Document):
 class Country(db.Document):
     vsol_id = db.IntField(required=True)
     name = db.StringField(max_length=255, required=True)
-    sprite_position = db.StringField(max_length=255, required=True)
+    sprite_style = db.StringField(max_length=255, required=True)
 
 if __name__ == "__main__":
     pass

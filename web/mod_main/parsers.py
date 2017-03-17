@@ -13,13 +13,29 @@ def get_countries():
         if ((count < 2) or (count == len(rows) - 1)):
             continue
 
+        name = ''
+        style = ''
+        vsol_id = 0
         for i, col in enumerate(row):
+            if (i > 1):
+                continue
+
             if (i == 0):
                 name = col.attrib['title']
                 style = col.find("div").attrib['style']
-                countries.append(name)
-                print(name, style)
 
+                #countries.append(name)
+                #print(name, style)
+            if (i == 1):
+                href = col.getchildren().pop().find('a').attrib['href']
+                vsol_id = int(href.split('=')[1])
+
+        country = {}
+        country['name'] = name
+        country['style'] = style
+        country['vsol_id'] = vsol_id
+        countries.append(country)
+            
     return countries
 
 
@@ -66,5 +82,5 @@ if __name__ == "__main__":
 
     print(clubs["Россия"])'''
 
-    get_countries()
+    print(get_countries())
     

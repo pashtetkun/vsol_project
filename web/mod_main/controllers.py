@@ -50,9 +50,17 @@ def get_hiddenCountries():
 
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
-@mod_main.route('/adminApi/countries', methods=['GET'])
+@mod_main.route('/adminApi/countries', methods=['POST'])
 def get_countries():
     countries = parsers.get_countries()
+    Country.objects.delete()
+    for country in countries:
+        cntr = Country(
+            name=country.name
+            sprite_style=country.sprite_style
+            vsol_id=country.vsol_id
+        )
+        cntr.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": countries})
 
 if __name__ == "__main__":
