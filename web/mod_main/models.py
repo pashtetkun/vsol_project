@@ -24,6 +24,12 @@ class Country(db.Document):
     name = db.StringField(max_length=255, required=True)
     sprite_style = db.StringField(max_length=255, required=True)
 
+class Club(db.Document):
+    vsol_id = db.IntField(required=True)
+    name = db.StringField(max_length=255, required=True)
+    isHidden = db.BooleanField(required=True)
+    country_id = db.IntField(required=True)
+
 if __name__ == "__main__":
     pass
     
