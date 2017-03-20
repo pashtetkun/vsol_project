@@ -2,6 +2,7 @@ import React from 'react'
 import EventEmitter from 'wolfy87-eventemitter'
 import localizations from '../localizations/localizations'
 //import * as appActions from '../actions/AppActions'
+import MainTabPanel from '../components/MainTabPanel'
 import HiddenCountries from '../components/HiddenCountries'
 import RaisedButton from 'material-ui/RaisedButton'
 import { bindActionCreators } from 'redux'
@@ -34,8 +35,11 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<MuiThemeProvider>
-					{this.props.children}	
-				</ MuiThemeProvider>
+					<div>				
+						<MainTabPanel />
+						{that.props.children}
+					</div>
+				</MuiThemeProvider>
 			</div>
 		)
 	}

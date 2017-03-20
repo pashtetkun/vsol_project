@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 from flask import Blueprint, render_template, Response
-from web.mod_main.models import HiddenCountry
+from web.mod_main.models import HiddenCountry, Country
 
 import json
 from web.mod_main import parsers
@@ -56,8 +56,8 @@ def get_countries():
     Country.objects.delete()
     for country in countries:
         cntr = Country(
-            name=country.name
-            sprite_style=country.sprite_style
+            name=country.name,
+            sprite_style=country.sprite_style,
             vsol_id=country.vsol_id
         )
         cntr.save()
