@@ -4,6 +4,8 @@ import lxml.html as html
 HIDDEN_TEAMS_URL = 'http://virtualsoccer.ru/teams_hidden.php'
 COUNTRIES_URL = 'http://virtualsoccer.ru/teams.php'
 COUNTRY_URL = 'http://virtualsoccer.ru/teams_cntr.php'
+CLUB_URL = 'http://virtualsoccer.ru/roster.php'
+LOGO_URL = 'http://virtualsoccer.ru/embl_teams.php' #?id=12135
 
 def get_countries():
     countries = []
@@ -81,6 +83,33 @@ def get_clubs(country_id):
 
     return clubs
 
+def get_club(vsol_id):
+    page = html.parse("%s?num=%d" % (CLUB_URL, vsol_id))
+    name = ''
+    table = page.getroot().xpath("//table[@class='wst nil']//table[@class='wst nil']")[0]
+    div_name = table.xpath("//div[@class='tmhd']")[0]
+    if (len(div_name.getchildren()) == 0):
+        name = div_name.text_content()
+    else:
+        if (div_name.xpath("//span[@id='team_name']")):
+            name = div_name.xpath("//span[@id='team_name']")[0].text_content()
+        else:
+            name = div_name.text_content()
+
+    parent = div_name.getparent()
+    stadium = ''
+    stadium = parent.getchildren()[-3].text_content()
+
+    has_logo = False
+    if (table.xpath("//a[@class='mnu']")):
+        has_logo = (table.xpath("//a[@class='mnu']//img") != [])
+
+    if (has_logo):
+        print("%s?id=%d" % (LOGO_URL, vsol_id))
+
+    print(name)
+    print(stadium)
+
 
 def get_hidden_clubs():
     numbers = 22
@@ -124,5 +153,9 @@ if __name__ == "__main__":
 
     #print(get_countries())
 
-    print(get_clubs(1))
+    #print(get_clubs(1))
+
+    get_club(12135)
+    get_club(9768)
+    get_club(697)
     
