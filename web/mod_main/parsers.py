@@ -39,38 +39,47 @@ def get_countries():
             
     return countries
 
-def get_clubs():
-    countries = get_countries()
-    clubs = {}
-    for country in countries:
-        page = html.parse("%s?num=%d" % (COUNTRY_URL, country['vsol_id']))
-        #page = html.parse("%s?num=%d" % (COUNTRY_URL, 214))
-        table = None
-        tables = page.getroot().find_class('tbl')
-        if (len(tables) == 1):
-            table = tables[0]
-        else:
-            for tbl in tables:
-                if (len(tbl.getchildren()[0][0][0].getchildren()) == 0):
-                    continue
-                if (tbl.getchildren()[0][0][0][0].text_content() == 'Название команды'):
-                    table = tbl
-                    break;
-
-        rows = table.getchildren()
-        for count, row in enumerate(rows):
-            if ((count == 0) or (count == len(rows) - 1)):
+def get_clubs(country_id):
+    #countries = get_countries()
+    clubs = []
+    #for country in countries:
+    page = html.parse("%s?num=%d" % (COUNTRY_URL, country_id))
+    #page = html.parse("%s?num=%d" % (COUNTRY_URL, 214))
+    table = None
+    tables = page.getroot().find_class('tbl')
+    if (len(tables) == 1):
+        table = tables[0]
+    else:
+        for tbl in tables:
+            if (len(tbl.getchildren()[0][0][0].getchildren()) == 0):
                 continue
-            name = ""
-            vsol_id = 0
-            for i, col in enumerate(row):
-                if (i == 0):
-                    a = col.find_class('mnu')[0]
-                    name = a.text_content()
-                    href = a.attrib['href']
-                    vsol_id = int(href.split('=')[1])
+            if (tbl.getchildren()[0][0][0][0].text_content() == 'Название команды'):
+                table = tbl
+                break;
 
-            print (name, vsol_id)
+    rows = table.getchildren()
+    for count, row in enumerate(rows):
+        if ((count == 0) or (count == len(rows) - 1)):
+            continue
+        name = ""
+        vsol_id = 0
+        for i, col in enumerate(row):
+            if (i == 0):
+                a = col.find_class('mnu')[0]
+                name = a.text_content()
+                href = a.attrib['href']
+                vsol_id = int(href.split('=')[1])
+
+        clubs.append({
+            'name': name,
+            'vsol_id': vsol_id,
+            'country_id': country_id,
+            'isHidden': False
+        })
+
+        #print (name, vsol_id)
+
+    return clubs
 
 
 def get_hidden_clubs():
@@ -115,5 +124,5 @@ if __name__ == "__main__":
 
     #print(get_countries())
 
-    print(get_clubs())
+    print(get_clubs(1))
     

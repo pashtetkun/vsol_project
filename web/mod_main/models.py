@@ -31,5 +31,7 @@ class Club(db.Document):
     country_id = db.IntField(required=True)
 
 if __name__ == "__main__":
+    countries = list(Country.objects)
+    print(countries)
     pass
     

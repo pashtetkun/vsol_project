@@ -32,19 +32,22 @@
 }
 
 .wrapper-countries-table-row {
-	height: 10px;
+	height: 10px!important;
 }
 
 .wrapper-countries-table-column-index {
 	width: 30px;
+	height: 10px!important;
 }
 
 .wrapper-countries-table-column-country {
 	width: 200px;
+	height: 10px!important;
 }
 
 .wrapper-countries-table-column-count {
 	width: 50px;
+	height: 10px!important;
 }
 
 

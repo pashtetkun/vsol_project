@@ -1,17 +1,32 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
 import localizations from '../localizations/localizations'
-import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
 import { Link } from 'react-router'
+import * as countriesTableActions from '../actions/CountriesTableActions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
 
-export default class CountriesTable extends React.Component {
+class CountriesTable extends React.Component {
 	
+	componentDidMount() {
+		var that = this
+		//console.log('countries table did mount')
+		//if (!this.props.countries.length == 0)
+			this.props.countriesTableActions.getCountries()
+	}
+
 	render() {
 		
 		var that = this
 		
-		var rows = this.props.rows
+		var rows = this.props.countries
+		if (!rows)
+			rows = [{
+						'country': 'Австралия',
+					 	'clubs': ['Z', 'V'],
+					 	'vsol_id': 1,
+					}]
 		
 		return (
 				<div>
@@ -41,18 +56,18 @@ export default class CountriesTable extends React.Component {
 						
 							{rows.map((row, index) => (
 								<TableRow className="wrapper-countries-table-row"
-									key={("" + row.country)}
+									key={index}
 								>
 									<TableRowColumn className="wrapper-countries-table-column-index">
 										{index + 1}
 									</TableRowColumn>
 																		
 									<TableRowColumn className="wrapper-countries-table-column-country">
-										<Link to={("/country/"+index)}>{row.country}</Link>
+										<Link to={("/countries/"+row.vsol_id)}>{row.name}</Link>
 									</TableRowColumn>
 
 									<TableRowColumn className="wrapper-countries-table-column-count">
-										{row.clubs.length}
+										{'n/a'}
 									</TableRowColumn>
 								</TableRow>
 			 				))}	
@@ -66,3 +81,17 @@ export default class CountriesTable extends React.Component {
 		)
 	}
 }
+
+function mapStateToProps (state) {
+	return {
+		countries: state.countriesTable.countries,
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		countriesTableActions: bindActionCreators(countriesTableActions, dispatch)
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CountriesTable)

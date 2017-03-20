@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 from flask import Blueprint, render_template, Response
-from web.mod_main.models import HiddenCountry, Country
+from web.mod_main.models import HiddenCountry, Country, Club
 
 import json
 from web.mod_main import parsers
@@ -50,8 +50,20 @@ def get_hiddenCountries():
 
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
-@mod_main.route('/adminApi/countries', methods=['POST'])
+@mod_main.route('/adminApi/countries', methods=['GET'])
 def get_countries():
+    countries = []
+    for country in Country.objects:
+        cntr = {
+            'name': country.name,
+            'sprite_style': country.sprite_style,
+            'vsol_id': country.vsol_id
+        }
+        countries.append(cntr)
+    return resp(200, {"resultStatus": "SUCCESS", "result": countries})
+
+@mod_main.route('/adminApi/countries', methods=['POST'])
+def post_countries():
     countries = parsers.get_countries()
     Country.objects.delete()
     for country in countries:
@@ -62,6 +74,34 @@ def get_countries():
         )
         cntr.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": countries})
+
+@mod_main.route('/adminApi/initializeData', methods=['POST'])
+def initialize_data():
+    Country.objects.delete()
+    countries = parsers.get_countries()
+    for country in countries:
+        cntr = Country(
+            name=country['name'],
+            sprite_style=country['style'],
+            vsol_id=country['vsol_id']
+        )
+        cntr.save()
+
+    Club.objects.delete()
+    for country in countries:
+        clubs = parsers.get_clubs(country['vsol_id'])
+        for club in clubs:
+            cl = Club(
+                name=club['name'],
+                vsol_id=club['vsol_id'],
+                country_id=country['vsol_id'],
+                isHidden=club['isHidden']
+            )
+            cl.save()
+
+
+    return resp(200, {"resultStatus": "SUCCESS"})
+
 
 if __name__ == "__main__":
     pass

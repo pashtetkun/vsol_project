@@ -5,6 +5,11 @@ import localizations from '../localizations/localizations'
 
 export default class MainTabPanel extends React.Component {
 	
+	componentDidMount() {
+		var that = this
+		this.context.router.push("/countries")
+	}
+
 	tabActiveHandler(tab) {
 		var path = tab.props["data-route"]
 		var currentPath = this.context.router.location.pathname
@@ -19,11 +24,11 @@ export default class MainTabPanel extends React.Component {
 		return (
 				<div>
 					<div>
-						<Tabs initialSelectedIndex={-1}>
+						<Tabs initialSelectedIndex={0}>
 						    <Tab
 						      	label={'Клубы'}
 							    onActive={this.tabActiveHandler.bind(that)}
-						    	data-route="/clubs"
+						    	data-route="/countries"
 						    />
 						    <Tab
 								label={'Инструменты'}
