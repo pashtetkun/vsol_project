@@ -8,7 +8,7 @@ COUNTRY_URL = 'http://virtualsoccer.ru/teams_cntr.php'
 def get_countries():
     countries = []
     page = html.parse(COUNTRIES_URL)
-    table = page.getroot().find_class('tbl').pop()
+    table = page.getroot().find_class('tbl')[0]
     rows = table.getchildren()
     for count, row in enumerate(rows):
         if ((count < 2) or (count == len(rows) - 1)):
@@ -28,14 +28,14 @@ def get_countries():
                 #countries.append(name)
                 #print(name, style)
             if (i == 1):
-                href = col.getchildren().pop().find('a').attrib['href']
+                href = col.getchildren()[0].find('a').attrib['href']
                 vsol_id = int(href.split('=')[1])
 
-        country = {}
-        country['name'] = name
-        country['style'] = style
-        country['vsol_id'] = vsol_id
-        countries.append(country)
+        countries.append({
+            'name': name,
+            'style': style,
+            'vsol_id': vsol_id
+        })
             
     return countries
 
@@ -65,13 +65,10 @@ def get_clubs():
             vsol_id = 0
             for i, col in enumerate(row):
                 if (i == 0):
-                    #a = col.getchildren()[0]
-                    a = col.find_class('mnu').pop()
+                    a = col.find_class('mnu')[0]
                     name = a.text_content()
                     href = a.attrib['href']
                     vsol_id = int(href.split('=')[1])
-                else:
-                    continue
 
             print (name, vsol_id)
 
@@ -81,7 +78,7 @@ def get_hidden_clubs():
     clubs = {}
     for num in range(numbers):
         page = html.parse("%s?page=%d" % (HIDDEN_TEAMS_URL, num))
-        table = page.getroot().find_class('tbl').pop()
+        table = page.getroot().find_class('tbl')[0]
         rows = table.getchildren()
         for count, row in enumerate(rows):
             if ((count == 0) or (count == len(rows) - 1)):
@@ -89,20 +86,17 @@ def get_hidden_clubs():
             name = ""
             country = ""
             for i, col in enumerate(row):
-                if (i == 0):
-                    a = col.find("a")
-                    name = a.text_content()
-                if (i == 1):
-                    country = col.attrib['title']
                 if (i > 1):
                     continue
+                if (i == 0):
+                    name = col.find("a").text_content()
+                if (i == 1):
+                    country = col.attrib['title']
 
             if (country in clubs):
                 clubs.get(country).append(name)
             else:
-                lst = []
-                lst.append(name)
-                clubs[country] = lst
+                clubs[country] = [name]
 
     od = collections.OrderedDict(sorted(clubs.items()))
     #for k, v in od.items():
