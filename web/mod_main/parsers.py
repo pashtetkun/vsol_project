@@ -1,11 +1,24 @@
 import collections
 import lxml.html as html
+import requests
+import imghdr
+
 
 HIDDEN_TEAMS_URL = 'http://virtualsoccer.ru/teams_hidden.php'
 COUNTRIES_URL = 'http://virtualsoccer.ru/teams.php'
 COUNTRY_URL = 'http://virtualsoccer.ru/teams_cntr.php'
 CLUB_URL = 'http://virtualsoccer.ru/roster.php'
 LOGO_URL = 'http://virtualsoccer.ru/embl_teams.php' #?id=12135
+
+
+def get_club_logo(vsol_id):
+    url = "%s?id=%d" % (LOGO_URL, vsol_id)
+    r = requests.get(url)
+    if (r.status_code == 200) and (r.content):
+        print(imghdr.what(None, r.content))
+        with open('%d.png' % vsol_id, 'wb') as f:
+            f.write(r.content)
+
 
 def get_countries():
     countries = []
@@ -100,12 +113,14 @@ def get_club(vsol_id):
     stadium = ''
     stadium = parent.getchildren()[-3].text_content()
 
-    has_logo = False
+    '''has_logo = False
     if (table.xpath("//a[@class='mnu']")):
-        has_logo = (table.xpath("//a[@class='mnu']//img") != [])
+        a = table.xpath("//a[@class='mnu']")[0]
+        print(len(a))
+        img = a.find("img")
 
     if (has_logo):
-        print("%s?id=%d" % (LOGO_URL, vsol_id))
+        print("%s?id=%d" % (LOGO_URL, vsol_id))'''
 
     print(name)
     print(stadium)
@@ -155,7 +170,13 @@ if __name__ == "__main__":
 
     #print(get_clubs(1))
 
-    get_club(12135)
-    get_club(9768)
-    get_club(697)
+    #get_club(12135)
+    #get_club(9768)
+    #get_club(697)
+    #get_club(19261)
+
+    get_club_logo(697)
+    get_club_logo(2)
+    get_club_logo(12135)
+    get_club_logo(101)
     
