@@ -68,9 +68,9 @@ def post_countries():
     Country.objects.delete()
     for country in countries:
         cntr = Country(
-            name=country.name,
-            sprite_style=country.sprite_style,
-            vsol_id=country.vsol_id
+            name=country['name'],
+            sprite_style=country['style'],
+            vsol_id=country['vsol_id']
         )
         cntr.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": countries})

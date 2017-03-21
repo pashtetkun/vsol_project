@@ -5,7 +5,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import { Link } from 'react-router'
 
 
-export default class HiddenCountryTable extends React.Component {
+export default class CountryTable extends React.Component {
 	
 	render() {
 		

@@ -1,19 +1,26 @@
 import React from 'react'
 import localizations from '../localizations/localizations'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table'
+import RaisedButton from 'material-ui/RaisedButton'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
 import { Link } from 'react-router'
-import * as countriesTableActions from '../actions/CountriesTableActions'
+import * as countriesActions from '../actions/CountriesActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 
-class CountriesTable extends React.Component {
+class Countries extends React.Component {
 	
 	componentDidMount() {
 		var that = this
 		//console.log('countries table did mount')
 		//if (!this.props.countries.length == 0)
-			this.props.countriesTableActions.getCountries()
+			this.props.countriesActions.getCountries()
+	}
+
+	initCountries(){
+		var that = this
+		this.props.countriesActions.initCountries()
 	}
 
 	render() {
@@ -21,15 +28,26 @@ class CountriesTable extends React.Component {
 		var that = this
 		
 		var rows = this.props.countries
-		if (!rows)
-			rows = [{
-						'country': 'Австралия',
-					 	'clubs': ['Z', 'V'],
-					 	'vsol_id': 1,
-					}]
+
+		var disabledInitBtn = (rows.length == 0) ? false : true
+
+		var initCountriesStatus = this.props.initCountriesStatus
 		
 		return (
 				<div>
+					<RaisedButton 
+						label={'инициализировать страны'} primary={true} 
+						onTouchTap={this.initCountries.bind(that)}
+						disabled={disabledInitBtn}
+					/>
+
+					<RefreshIndicator
+      						size={40}
+      						left={10}
+      						top={10}
+      						status={initCountriesStatus}
+    				/>
+
 					<Table className="wrapper-countries-table" height='400px'>
 					
 						<TableHeader className="wrapper-countries-table-header"
@@ -70,7 +88,7 @@ class CountriesTable extends React.Component {
 										{'n/a'}
 									</TableRowColumn>
 								</TableRow>
-			 				))}	
+			 				))}
 							
 							
 			        	</TableBody>
@@ -84,14 +102,15 @@ class CountriesTable extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		countries: state.countriesTable.countries,
+		countries: state.countries.countries,
+		initCountriesStatus: state.countries.initCountriesStatus,
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		countriesTableActions: bindActionCreators(countriesTableActions, dispatch)
+		countriesActions: bindActionCreators(countriesActions, dispatch)
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CountriesTable)
+export default connect(mapStateToProps, mapDispatchToProps)(Countries)

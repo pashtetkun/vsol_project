@@ -1,21 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import HiddenCountryTable from './HiddenCountryTable'
+import CountryTable from './CountryTable'
 import localizations from '../localizations/localizations'
 import { connect } from 'react-redux'
 
-class HiddenCountry extends React.Component {
+class Country extends React.Component {
 
 	render() {
 		
 		var that = this
 		var index = this.props.params.index
-		var item = this.props.hiddenCountries[index]
-		var clubs = item.clubs
+		var clubs = []
 		
 		return (
 				<div>
-					<HiddenCountryTable rows={clubs} />
+					<CountryTable rows={clubs} />
 			    </div>
 		)
 	}
@@ -23,8 +22,8 @@ class HiddenCountry extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		hiddenCountries: state.hiddenCountries.hiddenCountries,
+		countries: state.countries.countries,
 	}
 }
 
-export default connect(mapStateToProps)(HiddenCountry)
+export default connect(mapStateToProps)(Country)

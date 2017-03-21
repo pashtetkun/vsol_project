@@ -1,12 +1,10 @@
 import { combineReducers } from 'redux'
 import app from './app'
-import hiddenCountries from './hiddenCountries'
-import countriesTable from './countriesTable'
+import countries from './countries'
 import tools from './Tools'
 
 export default combineReducers({
   app,
-  hiddenCountries,
-  countriesTable,
+  countries,
   tools,
 })

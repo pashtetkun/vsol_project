@@ -1,21 +1,21 @@
 import {
-	HIDDEN_COUNTRIES_GET_REQUEST,
-	HIDDEN_COUNTRIES_GET_SUCCESS,
-	HIDDEN_COUNTRIES_GET_FAILURE,
-	HIDDEN_COUNTRIES_POST_REQUEST,
-	HIDDEN_COUNTRIES_POST_SUCCESS,
-	HIDDEN_COUNTRIES_POST_FAILURE,
-} from '../constants/HiddenCountries'
+	COUNTRIES_GET_REQUEST,
+	COUNTRIES_GET_SUCCESS,
+	COUNTRIES_GET_FAILURE,
+	INIT_COUNTRIES_POST_REQUEST,
+	INIT_COUNTRIES_POST_SUCCESS,
+	INIT_COUNTRIES_POST_FAILURE,
+} from '../constants/Countries'
 
 
-export function getHiddenCountries() {
+export function getCountries() {
 
-	var url = "/adminApi/hiddenCountries?"
+	var url = "/adminApi/countries"
 
 	return (dispatch) => {
 	
 		dispatch({
-	  		type: HIDDEN_COUNTRIES_GET_REQUEST
+	  		type: COUNTRIES_GET_REQUEST
 		})
 		
 		fetch(url, {
@@ -31,14 +31,14 @@ export function getHiddenCountries() {
 		  		if (json.resultStatus === "SUCCESS"){
 		  			
 		  			dispatch({
-		  				type: HIDDEN_COUNTRIES_GET_SUCCESS,
+		  				type: COUNTRIES_GET_SUCCESS,
 						payload: json.result,			
 					})
 	
 		  		} else {
 		  			
 		  			dispatch({
-		  				type: HIDDEN_COUNTRIES_GET_FAILURE,
+		  				type: COUNTRIES_GET_FAILURE,
 						payload: [],
 					})	  			
 		  		}	  		
@@ -46,20 +46,20 @@ export function getHiddenCountries() {
 		  .catch((err) => {
 			  	console.log(err)
 		  		dispatch({
-		  				type: HIDDEN_COUNTRIES_GET_FAILURE
+		  				type: COUNTRIES_GET_FAILURE
 					})
 		  })
 	}
 }
 
-export function postHiddenCountries() {
+export function initCountries() {
 
-	var url = "/adminApi/hiddenCountries?"
+	var url = "/adminApi/countries"
 
 	return (dispatch) => {
 	
 		dispatch({
-	  		type: HIDDEN_COUNTRIES_POST_REQUEST
+	  		type: INIT_COUNTRIES_POST_REQUEST
 		})
 		
 		fetch(url, {
@@ -75,20 +75,22 @@ export function postHiddenCountries() {
 		  		if (json.resultStatus === "SUCCESS"){
 		  			
 		  			dispatch({
-		  				type: HIDDEN_COUNTRIES_POST_SUCCESS,			
+		  				type: INIT_COUNTRIES_POST_SUCCESS,
+						payload: json.result,			
 					})
 	
 		  		} else {
 		  			
 		  			dispatch({
-		  				type: HIDDEN_COUNTRIES_POST_FAILURE,
+		  				type: INIT_COUNTRIES_POST_FAILURE,
+						payload: [],
 					})	  			
 		  		}	  		
 		   })
 		  .catch((err) => {
 			  	console.log(err)
 		  		dispatch({
-		  				type: HIDDEN_COUNTRIES_POST_FAILURE
+		  				type: INIT_COUNTRIES_POST_FAILURE
 					})
 		  })
 	}
