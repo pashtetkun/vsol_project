@@ -102,6 +102,15 @@ def initialize_data():
 
     return resp(200, {"resultStatus": "SUCCESS"})
 
+@mod_main.route('/adminApi/country/<int:id>', methods=['GET'])
+def get_country(id):
+    clubs = []
+    for club in Club.objects:
+        cl = {}
+        cl['vsol_id'] = club.vsol
+        cl['name'] = club.name
+        clubs.append(cl)
+    return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
 if __name__ == "__main__":
     pass

@@ -1,20 +1,52 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CountryTable from './CountryTable'
+import ClubsTable from './ClubsTable'
 import localizations from '../localizations/localizations'
+import RefreshIndicator from 'material-ui/RefreshIndicator'
+import RaisedButton from 'material-ui/RaisedButton'
+import * as countryActions from '../actions/CountryActions'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 class Country extends React.Component {
 
+	componentDidMount() {
+		var that = this
+		var country_id = this.props.params.index
+		this.props.countryActions.getCountryClubs(country_id)
+	}
+
+	initClubs(){
+		var that = this
+		var country_id = this.props.params.index
+		this.props.countryActions.initCountryClubs(country_id)
+	}
+
 	render() {
 		
 		var that = this
-		var index = this.props.params.index
-		var clubs = []
+		
+		var clubs = this.props.clubs
+
+		var disabledInitBtn = (clubs.length == 0) ? false : true
+
+		var initCountryClubsStatus = this.props.initCountryClubsStatus
 		
 		return (
 				<div>
-					<CountryTable rows={clubs} />
+					<RaisedButton 
+						label={'инициализировать клубы'} primary={true} 
+						onTouchTap={this.initClubs.bind(that)}
+						disabled={disabledInitBtn}
+					/>
+
+					<RefreshIndicator
+      						size={40}
+      						left={10}
+      						top={10}
+      						status={initCountryClubsStatus}
+    				/>
+					<ClubsTable rows={clubs} />
 			    </div>
 		)
 	}
@@ -22,8 +54,15 @@ class Country extends React.Component {
 
 function mapStateToProps (state) {
 	return {
-		countries: state.countries.countries,
+		clubs: state.country.clubs,
+		initCountryClubsStatus: state.country.initCountryClubsStatus,
 	}
 }
 
-export default connect(mapStateToProps)(Country)
+function mapDispatchToProps(dispatch) {
+	return {
+		countryActions: bindActionCreators(countryActions, dispatch)
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Country)
