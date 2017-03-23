@@ -18,7 +18,7 @@
     "babel-preset-stage-1": "^6.22.0",
     "css-loader": "^0.27.3",
     "extract-text-webpack-plugin": "^2.1.0",
-    "style-loader": "^0.14.1",
+    "style-loader": "^0.16.0",
     "webpack": "^2.2.1"
   },
   "dependencies": {
@@ -32,7 +32,7 @@
     "react-router": "^3.0.2",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "redux-logger": "^2.8.2",
+    "redux-logger": "^2.10.2",
     "redux-thunk": "^2.2.0",
     "simple-enum": "0.0.3",
     "wolfy87-eventemitter": "^5.1.0"
