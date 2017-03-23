@@ -68,7 +68,9 @@ export function initCountryClubs(country_id) {
 	    		'Accept': 'application/json',
 	    		'Content-Type': 'application/json'
 	  		},
-	  		body: country_id,
+	  		body: JSON.stringify({
+	  			id: country_id
+	  		}),
 			credentials: 'include'		
 		}).then(response => response.json())
 		  .then(json => {

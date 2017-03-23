@@ -118,7 +118,7 @@ def get_country(id):
 
 @mod_main.route('/adminApi/country', methods=['POST'])
 def post_country():
-    country_id = int(request.form['id'])
+    country_id = request.get_json()['id']
     clubs = parsers.get_clubs(country_id)
 
     for club in clubs:
