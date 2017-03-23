@@ -1,5 +1,5 @@
 ﻿# -*- coding: utf-8 -*-
-from flask import Blueprint, render_template, Response
+from flask import Blueprint, render_template, Response, request
 from web.mod_main.models import HiddenCountry, Country, Club
 
 import json
@@ -13,11 +13,11 @@ def to_json(data):
 def resp(code, data):
     return Response(
         status=code,
-        #mimetype="application/json",
-        mimetype="text/html",
+        mimetype="application/json",
         response=to_json(data)
     )
 
+"""
 @mod_main.route('/adminApi/hiddenCountries', methods=['POST'])
 def post_hiddenCountries():
     dict_clubs = parsers.get_hidden_clubs()
@@ -36,8 +36,9 @@ def post_hiddenCountries():
         hiddenCountry.save()
 
     return resp(200, {"resultStatus": "SUCCESS"})
+"""
 
-    
+"""
 @mod_main.route('/adminApi/hiddenCountries', methods=['GET'])
 def get_hiddenCountries():
     hiddenCountries = HiddenCountry.objects
@@ -49,6 +50,7 @@ def get_hiddenCountries():
         clubs.append(club)
 
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
+"""
 
 @mod_main.route('/adminApi/countries', methods=['GET'])
 def get_countries():
@@ -75,6 +77,7 @@ def post_countries():
         cntr.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": countries})
 
+"""
 @mod_main.route('/adminApi/initializeData', methods=['POST'])
 def initialize_data():
     Country.objects.delete()
@@ -101,15 +104,31 @@ def initialize_data():
 
 
     return resp(200, {"resultStatus": "SUCCESS"})
+"""
 
 @mod_main.route('/adminApi/country/<int:id>', methods=['GET'])
 def get_country(id):
     clubs = []
-    for club in Club.objects:
+    for club in Club.objects(country_id=id):
         cl = {}
-        cl['vsol_id'] = club.vsol
+        cl['vsol_id'] = club.vsol_id
         cl['name'] = club.name
         clubs.append(cl)
+    return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
+
+@mod_main.route('/adminApi/country', methods=['POST'])
+def post_country():
+    country_id = int(request.form['id'])
+    clubs = parsers.get_clubs(country_id)
+
+    for club in clubs:
+        c = Club(
+            name=club['name'],
+            vsol_id=club['vsol_id'],
+            isHidden=False,
+            country_id=country_id
+        )
+        c.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
 if __name__ == "__main__":

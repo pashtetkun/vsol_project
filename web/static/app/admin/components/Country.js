@@ -12,13 +12,13 @@ class Country extends React.Component {
 
 	componentDidMount() {
 		var that = this
-		var country_id = this.props.params.index
+		var country_id = parseInt(this.props.params.index)
 		this.props.countryActions.getCountryClubs(country_id)
 	}
 
 	initClubs(){
 		var that = this
-		var country_id = this.props.params.index
+		var country_id = parseInt(this.props.params.index)
 		this.props.countryActions.initCountryClubs(country_id)
 	}
 
