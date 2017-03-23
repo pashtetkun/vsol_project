@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Link } from 'react-router-dom'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import localizations from '../localizations/localizations'
 
@@ -7,14 +8,14 @@ export default class MainTabPanel extends React.Component {
 	
 	componentDidMount() {
 		var that = this
-		this.context.router.push("/countries")
+		this.context.router.history.push("/countries")
 	}
 
 	tabActiveHandler(tab) {
 		var path = tab.props["data-route"]
-		var currentPath = this.context.router.location.pathname
-		if (currentPath != path)
-			this.context.router.push(path)
+		//var currentPath = this.context.router.location.pathname
+		//if (currentPath != path)
+		this.context.router.history.push(path)
 	}
 	
 	render() {
