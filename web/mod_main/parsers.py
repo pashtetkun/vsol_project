@@ -30,7 +30,7 @@ def get_countries():
             continue
 
         name = ''
-        style = ''
+        colors_position = ''
         vsol_id = 0
         for i, col in enumerate(row):
             if (i > 1):
@@ -38,7 +38,7 @@ def get_countries():
 
             if (i == 0):
                 name = col.attrib['title']
-                style = col.find("div").attrib['style']
+                colors_position = col.find("div").attrib['style'].split(':')[1].replace('px', '').lstrip()
 
                 #countries.append(name)
                 #print(name, style)
@@ -48,7 +48,7 @@ def get_countries():
 
         countries.append({
             'name': name,
-            'style': style,
+            'colors_position': colors_position,
             'vsol_id': vsol_id
         })
             
@@ -166,7 +166,7 @@ if __name__ == "__main__":
 
     print(clubs["Россия"])'''
 
-    #print(get_countries())
+    print(get_countries())
 
     #print(get_clubs(1))
 
@@ -175,8 +175,10 @@ if __name__ == "__main__":
     #get_club(697)
     #get_club(19261)
 
+    '''
     get_club_logo(697)
     get_club_logo(2)
     get_club_logo(12135)
     get_club_logo(101)
+    '''
     

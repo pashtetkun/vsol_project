@@ -15,8 +15,8 @@
 
 }
 
-.wrapper-countries-table-header-index {
-	width: 30px;
+.wrapper-countries-table-header-colors {
+	width: 20px;
 }
 
 .wrapper-countries-table-header-country {
@@ -32,22 +32,23 @@
 }
 
 .wrapper-countries-table-row {
-	height: 10px!important;
+	height: 14px!important;
 }
 
-.wrapper-countries-table-column-index {
-	width: 30px;
-	height: 10px!important;
+.wrapper-countries-table-column-colors {
+	width: 20px;
+	height: 14px!important;
+	background: url(../images/sprite-1.6.png) 0 0 no-repeat;
 }
 
 .wrapper-countries-table-column-country {
 	width: 200px;
-	height: 10px!important;
+	height: 14px!important;
 }
 
 .wrapper-countries-table-column-count {
 	width: 50px;
-	height: 10px!important;
+	height: 14px!important;
 }
 
 

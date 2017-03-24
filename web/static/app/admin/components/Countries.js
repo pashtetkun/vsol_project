@@ -9,6 +9,10 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 
+/*const style = {
+  backgroundPosition: -0 -15,
+};*/
+
 class Countries extends React.Component {
 	
 	componentDidMount() {
@@ -21,6 +25,14 @@ class Countries extends React.Component {
 	initCountries(){
 		var that = this
 		this.props.countriesActions.initCountries()
+	}
+
+	getStyle(th, country){
+		var pos = country.colors_position
+		var st = Object.assign({}, {
+				backgroundPosition: pos.replace('',''),
+			})
+		return st
 	}
 
 	render() {
@@ -55,9 +67,7 @@ class Countries extends React.Component {
 			            	adjustForCheckbox={false}
 						>
 							<TableRow className="wrapper-countries-table-header-row">							
-								<TableHeaderColumn className={"wrapper-countries-table-header-index"}>
-									{localizations.countriesTableHeaderIndex}
-								</TableHeaderColumn>
+								<TableHeaderColumn className={"wrapper-countries-table-header-colors"} />
 								<TableHeaderColumn className={"wrapper-countries-table-header-country"}>
 									{localizations.countriesTableHeaderCountry}
 								</TableHeaderColumn>
@@ -76,8 +86,10 @@ class Countries extends React.Component {
 								<TableRow className="wrapper-countries-table-row"
 									key={index}
 								>
-									<TableRowColumn className="wrapper-countries-table-column-index">
-										{index + 1}
+									<TableRowColumn 
+										className="wrapper-countries-table-column-colors" 
+										style={{backgroundPositionX: row.colors_position.split(" ")[0],
+												backgroundPositionY: row.colors_position.split(" ")[1]}}>
 									</TableRowColumn>
 																		
 									<TableRowColumn className="wrapper-countries-table-column-country">
