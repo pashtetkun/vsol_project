@@ -1,3 +1,7 @@
+.mui-btn button {
+	border-radius: 10px!important;
+}
+
 .wrapper-hidden-countries {
 	width: 800px;
 }
@@ -74,4 +78,3 @@
 .wrapper-country-table-column-club {
 	width: 200px;
 }
-

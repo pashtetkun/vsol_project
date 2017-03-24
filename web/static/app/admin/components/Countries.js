@@ -47,7 +47,7 @@ class Countries extends React.Component {
 		
 		return (
 				<div>
-					<RaisedButton 
+					<RaisedButton className="mui-btn"
 						label={'инициализировать страны'} primary={true} 
 						onTouchTap={this.initCountries.bind(that)}
 						disabled={disabledInitBtn}
