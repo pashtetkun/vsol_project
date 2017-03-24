@@ -1,14 +1,16 @@
 ﻿# -*- coding: utf-8 -*-
 from flask import Blueprint, Response, request
 from web.mod_main.models import Country, Club
-
 import json
 from web.mod_main import parsers
 
+
 mod_main = Blueprint('main', __name__, url_prefix='')
+
 
 def to_json(data):
     return json.dumps(data) + "\n"
+
 
 def resp(code, data):
     return Response(
@@ -16,6 +18,7 @@ def resp(code, data):
         mimetype="application/json",
         response=to_json(data)
     )
+
 
 @mod_main.route('/adminApi/countries', methods=['GET'])
 def get_countries():
@@ -28,6 +31,7 @@ def get_countries():
         }
         countries.append(cntr)
     return resp(200, {"resultStatus": "SUCCESS", "result": countries})
+
 
 @mod_main.route('/adminApi/countries', methods=['POST'])
 def post_countries():
@@ -42,6 +46,7 @@ def post_countries():
         cntr.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": countries})
 
+
 @mod_main.route('/adminApi/country/<int:id>', methods=['GET'])
 def get_country(id):
     clubs = []
@@ -51,6 +56,7 @@ def get_country(id):
         cl['name'] = club.name
         clubs.append(cl)
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
+
 
 @mod_main.route('/adminApi/country', methods=['POST'])
 def post_country():
@@ -67,6 +73,7 @@ def post_country():
         c.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
+
 if __name__ == "__main__":
     pass
-    
+

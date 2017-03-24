@@ -54,6 +54,7 @@ def get_countries():
             
     return countries
 
+
 def get_clubs(country_id):
     #countries = get_countries()
     clubs = []
@@ -95,6 +96,7 @@ def get_clubs(country_id):
         #print (name, vsol_id)
 
     return clubs
+
 
 def get_club(vsol_id):
     page = html.parse("%s?num=%d" % (CLUB_URL, vsol_id))
@@ -158,6 +160,7 @@ def get_hidden_clubs():
     #print(clubs["Россия"])
 
     return od
+
 
 if __name__ == "__main__":
     '''clubs = get_hidden_clubs()

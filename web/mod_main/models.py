@@ -2,10 +2,12 @@
 
 from web import db
 
+
 class Country(db.Document):
     vsol_id = db.IntField(required=True)
     name = db.StringField(max_length=255, required=True)
     colors_position = db.StringField(max_length=255, required=True)
+
 
 class Club(db.Document):
     vsol_id = db.IntField(required=True)
@@ -17,6 +19,7 @@ class Club(db.Document):
     logo_size = db.IntField()
     isHidden = db.BooleanField(required=True)
     country_id = db.IntField(required=True)
+
 
 if __name__ == "__main__":
     countries = list(Country.objects)
