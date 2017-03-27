@@ -56,46 +56,52 @@ def get_countries():
 
 
 def get_clubs(country_id):
-    #countries = get_countries()
     clubs = []
-    #for country in countries:
     page = html.parse("%s?num=%d" % (COUNTRY_URL, country_id))
     #page = html.parse("%s?num=%d" % (COUNTRY_URL, 214))
     table = None
     tables = page.getroot().find_class('tbl')
-    if (len(tables) == 1):
-        table = tables[0]
-    else:
-        for tbl in tables:
-            if (len(tbl.getchildren()[0][0][0].getchildren()) == 0):
-                continue
-            if (tbl.getchildren()[0][0][0][0].text_content() == 'Название команды'):
-                table = tbl
-                break;
 
+    for tbl in tables:
+        if (len(tbl.getchildren()[0][0][0].getchildren()) == 0):
+            continue
+        if (tbl.getchildren()[0][0][0][0].text_content() == 'Название команды'):
+            table = tbl
+            break;
+
+    ids = []
     rows = table.getchildren()
     for count, row in enumerate(rows):
         if ((count == 0) or (count == len(rows) - 1)):
             continue
-        name = ""
+        #name = ""
         vsol_id = 0
         for i, col in enumerate(row):
             if (i == 0):
                 a = col.find_class('mnu')[0]
-                name = a.text_content()
+                #name = a.text_content()
                 href = a.attrib['href']
                 vsol_id = int(href.split('=')[1])
+                break
 
-        clubs.append({
+        """clubs.append({
             'name': name,
             'vsol_id': vsol_id,
             'country_id': country_id,
             'isHidden': False
-        })
+        })"""
+        ids.append(vsol_id)
 
         #print (name, vsol_id)
 
+    for id in ids:
+        club = get_club(id)
+        clubs.append(club)
+
     return clubs
+
+def get_hidden_clubs_for_country(country_id):
+    all_hidden_clubs = get_hidden_clubs()
 
 
 def get_club(vsol_id):
@@ -124,8 +130,14 @@ def get_club(vsol_id):
     if (has_logo):
         print("%s?id=%d" % (LOGO_URL, vsol_id))'''
 
-    print(name)
-    print(stadium)
+    #print(name)
+    #print(stadium)
+    club = {
+        'name': name,
+        'stadium': stadium,
+        'vsol_id': vsol_id
+    }
+    return club
 
 
 def get_hidden_clubs():
@@ -140,26 +152,32 @@ def get_hidden_clubs():
                 continue
             name = ""
             country = ""
+            vsol_id = 0
             for i, col in enumerate(row):
                 if (i > 1):
                     continue
                 if (i == 0):
-                    name = col.find("a").text_content()
+                    a = col.find_class('mnu')[0]
+                    name = a.text_content()
+                    href = a.attrib['href']
+                    vsol_id = int(href.split('=')[1])
                 if (i == 1):
                     country = col.attrib['title']
 
+            club = {'name':name, vsol_id:'vsol_id'}
             if (country in clubs):
-                clubs.get(country).append(name)
+                clubs.get(country).append(club)
             else:
-                clubs[country] = [name]
+                clubs[country] = [club]
 
-    od = collections.OrderedDict(sorted(clubs.items()))
+    #od = collections.OrderedDict(sorted(clubs.items()))
     #for k, v in od.items():
         #print(k)
 
     #print(clubs["Россия"])
 
-    return od
+    #return od
+    return clubs
 
 
 if __name__ == "__main__":

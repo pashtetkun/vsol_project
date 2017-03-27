@@ -67,6 +67,7 @@ def post_country():
         c = Club(
             name=club['name'],
             vsol_id=club['vsol_id'],
+            stadium=club['stadium'],
             isHidden=False,
             country_id=country_id
         )
