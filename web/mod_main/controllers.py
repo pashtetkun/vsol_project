@@ -2,7 +2,7 @@
 from flask import Blueprint, Response, request
 from web.mod_main.models import Country, Club
 import json
-from web.mod_main import parsers
+from web.mod_main import parsers, data_manager
 
 
 mod_main = Blueprint('main', __name__, url_prefix='')
@@ -49,29 +49,16 @@ def post_countries():
 
 @mod_main.route('/adminApi/country/<int:id>', methods=['GET'])
 def get_country(id):
-    clubs = []
-    for club in Club.objects(country_id=id):
-        cl = {}
-        cl['vsol_id'] = club.vsol_id
-        cl['name'] = club.name
-        clubs.append(cl)
+    hidden = request.args.get('hidden')
+    clubs = data_manager.get_country_clubs(id, True if hidden == "1" else False)
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
 
 @mod_main.route('/adminApi/country', methods=['POST'])
 def post_country():
     country_id = request.get_json()['id']
-    clubs = parsers.get_clubs(country_id)
+    clubs = data_manager.init_clubs_for_country(country_id)
 
-    for club in clubs:
-        c = Club(
-            name=club['name'],
-            vsol_id=club['vsol_id'],
-            stadium=club['stadium'],
-            isHidden=False,
-            country_id=country_id
-        )
-        c.save()
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
 

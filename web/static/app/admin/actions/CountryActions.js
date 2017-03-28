@@ -5,12 +5,13 @@ import {
 	INIT_COUNTRY_CLUBS_POST_REQUEST,
 	INIT_COUNTRY_CLUBS_POST_SUCCESS,
 	INIT_COUNTRY_CLUBS_POST_FAILURE,
+	COUNTRY_CLUBS_SET_TOGGLE
 } from '../constants/Country'
 
 
-export function getCountryClubs(country_id) {
+export function getCountryClubs(country_id, showHidden) {
 
-	var url = "/adminApi/country/" + country_id
+	var url = "/adminApi/country/" + country_id + "?hidden=" + showHidden ? "1" : "0"
 
 	return (dispatch) => {
 	
@@ -96,5 +97,12 @@ export function initCountryClubs(country_id) {
 		  				type: INIT_COUNTRY_CLUBS_POST_FAILURE
 					})
 		  })
+	}
+}
+
+export function setToggle(checked){
+	return {
+		type: COUNTRY_CLUBS_SET_TOGGLE,
+		payload: checked,
 	}
 }

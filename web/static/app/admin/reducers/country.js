@@ -4,12 +4,14 @@ import {
 	COUNTRY_CLUBS_GET_FAILURE,
 	INIT_COUNTRY_CLUBS_POST_REQUEST,
 	INIT_COUNTRY_CLUBS_POST_SUCCESS,
-	INIT_COUNTRY_CLUBS_POST_FAILURE
+	INIT_COUNTRY_CLUBS_POST_FAILURE,
+	COUNTRY_CLUBS_SET_TOGGLE
 } from '../constants/Country'
 
 const initialState = {
 	clubs: [],
 	initCountryClubsStatus: 'hide',
+	toggleOn: false,
 };
 
 export default function countryReducer(state = initialState, action) {
@@ -46,6 +48,11 @@ export default function countryReducer(state = initialState, action) {
 			return Object.assign({}, state, {
 				clubs: [],
 				initCountryClubsStatus: 'hide',
+			})
+
+		case COUNTRY_CLUBS_SET_TOGGLE:
+			return Object.assign({}, state, {
+				toggleOn: action.payload,
 			})
 
 		default:
