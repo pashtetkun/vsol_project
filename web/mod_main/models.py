@@ -3,6 +3,11 @@
 from web import db
 
 
+class Settings(db.Document):
+    media_path = db.StringField(max_length=255, required=True)
+    media_url = db.StringField(max_length=255, required=True)
+
+
 class Country(db.Document):
     vsol_id = db.IntField(required=True)
     name = db.StringField(max_length=255, required=True)
