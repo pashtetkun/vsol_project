@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask_mongoengine import MongoEngine
+from flask_script import Manager
 
 app = Flask(__name__)
 app.config["MONGODB_SETTINGS"] = {'DB': "vsol_project"}
@@ -19,5 +20,16 @@ from web.mod_main.controllers import mod_main as main_module
 # Register blueprint(s)
 app.register_blueprint(main_module)
 
-if __name__ == '__main__':
+
+def init_actions():
+    print('initActions!!!')
+
+manager = Manager(app)
+
+@manager.command
+def runserver():
     app.run()
+    init_actions()
+
+if __name__ == '__main__':
+    manager.run()

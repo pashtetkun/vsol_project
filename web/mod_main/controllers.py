@@ -19,6 +19,10 @@ def resp(code, data):
         response=to_json(data)
     )
 
+@mod_main.before_app_first_request
+def init_actions():
+    data_manager.init_actions()
+
 
 @mod_main.route('/adminApi/countries', methods=['GET'])
 def get_countries():

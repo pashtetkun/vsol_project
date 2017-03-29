@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
-from web.mod_main.models import Country, Club
+from web.mod_main.models import Country, Club, Settings
 from web.mod_main import parsers
 import imghdr
+
+
+def init_actions():
+    if not Settings.objects:
+        settings = Settings(media_path='c:/media', media_url='static')
+        settings.save()
 
 
 def save_club_logo(vsol_id):
