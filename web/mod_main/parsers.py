@@ -114,7 +114,8 @@ def get_club(vsol_id):
 
     parent = div_name.getparent()
     stadiumText = parent.getchildren()[-3].text_content()
-    pattern = re.compile('"[\w\s-]+"')
+    print(vsol_id, stadiumText)
+    pattern = re.compile('"[^\"]+"')
     stadium = re.findall(pattern, stadiumText)[0].strip('"')
 
     '''has_logo = False

@@ -17,6 +17,7 @@ def save_club_logo(vsol_id):
 
     print(Club.objects(vsol_id=vsol_id))
 
+
 def init_clubs_for_country(country_id):
     clubs = parsers.get_clubs(country_id)
 
@@ -58,7 +59,8 @@ if __name__ == "__main__":
     save_club_logo(12135)
     save_club_logo(101)
     """
-    #init_clubs_for_country(4)
-    print(len(get_country_clubs(4, False)))
-    print(len(get_country_clubs(4, True)))
+    init_clubs_for_country(4)
+    #init_clubs_for_country(8)
+    #print(len(get_country_clubs(4, False)))
+    #print(len(get_country_clubs(4, True)))
 

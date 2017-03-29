@@ -40,7 +40,7 @@ class Country extends React.Component {
 
 		var initCountryClubsStatus = this.props.initCountryClubsStatus
 
-		var toggleOn = this.props.toggleOn
+		//var toggleOn = this.props.toggleOn
 		
 		return (
 				<div>
@@ -59,7 +59,6 @@ class Country extends React.Component {
     				<Toggle
       					label="Скрытые"
       					onToggle={this.onToggle.bind(that)}
-      					toggled={toggleOn}
     				/>
 					<ClubsTable rows={clubs}/>
 			    </div>

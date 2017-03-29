@@ -49,8 +49,8 @@ def post_countries():
 
 @mod_main.route('/adminApi/country/<int:id>', methods=['GET'])
 def get_country(id):
-    hidden = request.args.get('hidden')
-    clubs = data_manager.get_country_clubs(id, True if hidden == "1" else False)
+    hidden = request.args.get('showHidden')
+    clubs = data_manager.get_country_clubs(id, True if hidden else False)
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
 

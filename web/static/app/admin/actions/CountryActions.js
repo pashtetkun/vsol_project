@@ -11,7 +11,9 @@ import {
 
 export function getCountryClubs(country_id, showHidden) {
 
-	var url = "/adminApi/country/" + country_id + "?hidden=" + showHidden ? "1" : "0"
+	var url = "/adminApi/country/" + country_id + "?"
+	if (showHidden)
+		url = url.concat("&showHidden=1")
 
 	return (dispatch) => {
 	
