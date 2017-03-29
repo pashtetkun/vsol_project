@@ -2,6 +2,7 @@
 from web.mod_main.models import Country, Club, Settings
 from web.mod_main import parsers
 import imghdr
+import os
 
 
 def init_actions():
@@ -11,17 +12,21 @@ def init_actions():
 
 
 def save_club_logo(vsol_id):
+    settings = Settings.objects[0]
     bytes = parsers.get_club_logo(vsol_id)
-    path = ''
+    name = ''
     size = 0
     if bytes:
         ext = imghdr.what(None, bytes)
-        path = '%d.%s' % (vsol_id, ext)
+        name = '%d.%s' % (vsol_id, ext)
+        full_path = os.path.join(settings.media_path, 'clubs', name)
         size = len(bytes)
-        with open(path, 'wb') as f:
+        os.makedirs(os.path.dirname(full_path), exist_ok=True)
+        with open(full_path, 'wb') as f:
             f.write(bytes)
 
-    print(Club.objects(vsol_id=vsol_id))
+    #print(Club.objects(vsol_id=vsol_id))
+    return name, size
 
 
 def init_clubs_for_country(country_id):
@@ -33,16 +38,20 @@ def init_clubs_for_country(country_id):
         clubs.extend(hidden_clubs)
 
     for club in clubs:
+        image, size = save_club_logo(club['vsol_id'])
         c = Club(
             name=club['name'],
             vsol_id=club['vsol_id'],
             stadium=club['stadium'],
             isHidden=club['isHidden'],
-            country_id=country_id
+            country_id=country_id,
+            logo_url=image,
+            logo_size=size
         )
         c.save()
 
     return clubs
+
 
 def get_country_clubs(country_id, showHidden):
     clubs = []
@@ -58,15 +67,17 @@ def get_country_clubs(country_id, showHidden):
 
     return clubs
 
+
 if __name__ == "__main__":
-    """
+
     save_club_logo(697)
     save_club_logo(2)
     save_club_logo(12135)
     save_club_logo(101)
-    """
-    init_clubs_for_country(4)
+
+    #init_clubs_for_country(4)
     #init_clubs_for_country(8)
+
     #print(len(get_country_clubs(4, False)))
     #print(len(get_country_clubs(4, True)))
 
