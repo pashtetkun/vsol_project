@@ -33,7 +33,7 @@
     "react-router-dom": "^4.0.0",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "redux-logger": "^3.0.0",
+    "redux-logger": "^3.0.1",
     "redux-thunk": "^2.2.0",
     "simple-enum": "0.0.3",
     "wolfy87-eventemitter": "^5.1.0"
