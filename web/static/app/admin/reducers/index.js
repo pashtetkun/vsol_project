@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import { reducer as formReducer } from 'redux-form'
 import app from './app'
 import countries from './countries'
 import country from './country'
@@ -9,4 +10,5 @@ export default combineReducers({
   countries,
   country,
   club,
+  form: formReducer,
 })

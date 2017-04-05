@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import * as clubActions from '../actions/ClubActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import ClubForm from './ClubForm'
 
 class Club extends React.Component {
 
@@ -15,17 +16,19 @@ class Club extends React.Component {
 		this.props.clubActions.getClub(club_id)
 	}
 
+	submit(values) {
+		console.log(values);
+	}
+
 	render() {
 		
 		var that = this
 		
 		var club = this.props.club
-
-		var title = club ? club.name : ""
 		
 		return (
 				<div>
-					{title}
+					<ClubForm onSubmit={this.submit.bind(that)} initialValues={club}/>
 			    </div>
 		)
 	}
