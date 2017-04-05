@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 from flask import Blueprint, Response, request
-from web.mod_main.models import Country, Club
+from web.mod_main.models import Country
 import json
 from web.mod_main import parsers, data_manager
 
@@ -19,6 +19,7 @@ def resp(code, data):
         response=to_json(data)
     )
 
+
 @mod_main.before_app_first_request
 def init_actions():
     data_manager.init_actions()
@@ -26,15 +27,8 @@ def init_actions():
 
 @mod_main.route('/adminApi/countries', methods=['GET'])
 def get_countries():
-    countries = []
-    for country in Country.objects:
-        cntr = {
-            'name': country.name,
-            'colors_position': country.colors_position,
-            'vsol_id': country.vsol_id
-        }
-        countries.append(cntr)
-    return resp(200, {"resultStatus": "SUCCESS", "result": countries})
+    countries = Country.objects
+    return resp(200, {"resultStatus": "SUCCESS", "result": json.loads(countries.to_json())})
 
 
 @mod_main.route('/adminApi/countries', methods=['POST'])
@@ -48,22 +42,23 @@ def post_countries():
             vsol_id=country['vsol_id']
         )
         cntr.save()
-    return resp(200, {"resultStatus": "SUCCESS", "result": countries})
+    cntrs = Country.objects
+    return resp(200, {"resultStatus": "SUCCESS", "result": json.loads(cntrs.to_json())})
 
 
 @mod_main.route('/adminApi/country/<int:id>', methods=['GET'])
 def get_country(id):
     hidden = request.args.get('showHidden')
     clubs = data_manager.get_country_clubs(id, True if hidden else False)
-    return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
+    return resp(200, {"resultStatus": "SUCCESS", "result": json.loads(clubs.to_json())})
 
 
 @mod_main.route('/adminApi/country', methods=['POST'])
 def post_country():
     country_id = request.get_json()['id']
-    clubs = data_manager.init_clubs_for_country(country_id)
-
-    return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
+    data_manager.init_clubs_for_country(country_id)
+    clubs = data_manager.get_country_clubs(country_id, False)
+    return resp(200, {"resultStatus": "SUCCESS", "result": json.loads(clubs.to_json())})
 
 
 @mod_main.route('/adminApi/club/<int:id>', methods=['GET'])

@@ -3,7 +3,7 @@ from web.mod_main.models import Country, Club, Settings, Club_status
 from web.mod_main import parsers
 import imghdr
 import os
-from bson import json_util
+from mongoengine.queryset.visitor import Q
 
 
 def init_actions():
@@ -56,17 +56,7 @@ def init_clubs_for_country(country_id):
 
 
 def get_country_clubs(country_id, showHidden):
-    clubs = []
-    for club in Club.objects(country_id=country_id):
-        if showHidden and not club['isHidden']:
-            continue
-        if not showHidden and club['isHidden']:
-            continue
-        cl = {}
-        cl['vsol_id'] = club.vsol_id
-        cl['name'] = club.name
-        clubs.append(cl)
-
+    clubs = Club.objects(Q(country_id=country_id) & Q(isHidden=showHidden))
     return clubs
 
 
