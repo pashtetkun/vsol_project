@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from web.mod_main.models import Country, Club, Settings
+from web.mod_main.models import Country, Club, Settings, Club_status
 from web.mod_main import parsers
 import imghdr
 import os
@@ -46,7 +46,8 @@ def init_clubs_for_country(country_id):
             isHidden=club['isHidden'],
             country_id=country_id,
             logo_url=image,
-            logo_size=size
+            logo_size=size,
+            status=Club_status.UNDEFINED.value
         )
         c.save()
 
@@ -70,14 +71,15 @@ def get_country_clubs(country_id, showHidden):
 
 if __name__ == "__main__":
 
+    '''
     save_club_logo(697)
     save_club_logo(2)
     save_club_logo(12135)
     save_club_logo(101)
+    '''
 
     #init_clubs_for_country(4)
     #init_clubs_for_country(8)
 
     #print(len(get_country_clubs(4, False)))
     #print(len(get_country_clubs(4, True)))
-
