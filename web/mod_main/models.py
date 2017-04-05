@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from web import db
+import mongoengine_goodjson as gj
 from enum import Enum
 
 
@@ -24,7 +25,7 @@ class Club_status(Enum):
     CHANGED_STADIUM = 'changed_stadium'
 
 
-class Club(db.Document):
+class Club(gj.Document):
     vsol_id = db.IntField(required=True)
     name = db.StringField(max_length=255, required=True)
     name_eng = db.StringField(max_length=255)

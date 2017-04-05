@@ -66,6 +66,12 @@ def post_country():
     return resp(200, {"resultStatus": "SUCCESS", "result": clubs})
 
 
+@mod_main.route('/adminApi/club/<int:id>', methods=['GET'])
+def get_club(id):
+    club = data_manager.get_club(id)
+    return resp(200, {"resultStatus": "SUCCESS", "result": json.loads(club.to_json())})
+
+
 if __name__ == "__main__":
     pass
 

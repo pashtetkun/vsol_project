@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import localizations from '../localizations/localizations'
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 
 export default class ClubsTable extends React.Component {
@@ -45,7 +45,7 @@ export default class ClubsTable extends React.Component {
 									</TableRowColumn>
 																		
 									<TableRowColumn>
-										{row.name}
+										<Link to={("/club/"+row.vsol_id)}>{row.name}</Link>
 									</TableRowColumn>
 								</TableRow>
 			 				))}	

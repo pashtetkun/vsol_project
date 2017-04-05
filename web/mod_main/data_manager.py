@@ -3,6 +3,7 @@ from web.mod_main.models import Country, Club, Settings, Club_status
 from web.mod_main import parsers
 import imghdr
 import os
+from bson import json_util
 
 
 def init_actions():
@@ -69,6 +70,10 @@ def get_country_clubs(country_id, showHidden):
     return clubs
 
 
+def get_club(id):
+    club = Club.objects(vsol_id=id)[0]
+    return club
+
 if __name__ == "__main__":
 
     '''
@@ -83,3 +88,5 @@ if __name__ == "__main__":
 
     #print(len(get_country_clubs(4, False)))
     #print(len(get_country_clubs(4, True)))
+
+    print(get_club(5772))

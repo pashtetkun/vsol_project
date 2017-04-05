@@ -4,6 +4,7 @@ import localizations from '../localizations/localizations'
 //import * as appActions from '../actions/AppActions'
 import Country from '../components/Country'
 import Countries from '../components/Countries'
+import Club from '../components/Club'
 import RaisedButton from 'material-ui/RaisedButton'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -47,6 +48,7 @@ export default class App extends React.Component {
 								<Route exact path="/" component={Countries} />
 								<Route exact path="/countries" component={Countries} />
 								<Route exact path="/countries/:index" component={Country} />
+								<Route exact path="/club/:index" component={Club} />
 							</Switch>
 						</div>
 					</MuiThemeProvider>
