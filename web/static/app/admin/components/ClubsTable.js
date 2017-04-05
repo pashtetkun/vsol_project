@@ -45,7 +45,7 @@ export default class ClubsTable extends React.Component {
 									</TableRowColumn>
 																		
 									<TableRowColumn>
-										<Link to={("/club/"+row.vsol_id)}>{row.name}</Link>
+										<Link to={("/club/"+row.vsol_id)}>{row.vsol_name}</Link>
 									</TableRowColumn>
 								</TableRow>
 			 				))}	

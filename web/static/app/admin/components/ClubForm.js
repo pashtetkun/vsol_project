@@ -16,12 +16,12 @@ class ClubForm extends React.Component {
 		return (
 				<form onSubmit={handleSubmit}>
         			<div>
-          				<label htmlFor="name">Название</label>
-          				<Field name="name" component="input" type="text"/>
+          				<label htmlFor="vsol_name">Название</label>
+          				<Field name="vsol_name" component="input" type="text"/>
         			</div>
         			<div>
-          				<label htmlFor="stadium">Стадион</label>
-          				<Field name="stadium" component="input" type="text"/>
+          				<label htmlFor="vsol_stadium">Стадион</label>
+          				<Field name="vsol_stadium" component="input" type="text"/>
         			</div>
         			<button type="submit">Submit</button>
       			</form>

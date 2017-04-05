@@ -4,15 +4,19 @@ from web.mod_main import parsers
 import imghdr
 import os
 from mongoengine.queryset.visitor import Q
+import datetime
 
 
 def init_actions():
     if not Settings.objects:
-        settings = Settings(media_path='c:/media', media_url='static')
+        settings = Settings(
+            media_path='c:/media',
+            media_url='static'
+        )
         settings.save()
 
 
-def save_club_logo(vsol_id):
+def save_vsol_club_logo(vsol_id):
     settings = Settings.objects[0]
     bytes = parsers.get_club_logo(vsol_id)
     name = ''
@@ -20,7 +24,7 @@ def save_club_logo(vsol_id):
     if bytes:
         ext = imghdr.what(None, bytes)
         name = '%d.%s' % (vsol_id, ext)
-        full_path = os.path.join(settings.media_path, 'clubs', name)
+        full_path = os.path.join(settings.media_path, 'vsol_clubs', name)
         size = len(bytes)
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
         with open(full_path, 'wb') as f:
@@ -39,13 +43,18 @@ def init_clubs_for_country(country_id):
         clubs.extend(hidden_clubs)
 
     for club in clubs:
-        image, size = save_club_logo(club['vsol_id'])
+        image, size = save_vsol_club_logo(club['vsol_id'])
         c = Club(
-            name=club['name'],
             vsol_id=club['vsol_id'],
+            vsol_name=club['name'],
+            vsol_stadium=club['stadium'],
+            vsol_logo_url=image,
+            vsol_logo_size=size,
+            vsol_isHidden=club['isHidden'],
+            vsol_country_id=country_id,
+            last_syncronization=datetime.datetime.now(),
+            name=club['name'],
             stadium=club['stadium'],
-            isHidden=club['isHidden'],
-            country_id=country_id,
             logo_url=image,
             logo_size=size,
             status=Club_status.UNDEFINED.value
@@ -56,7 +65,7 @@ def init_clubs_for_country(country_id):
 
 
 def get_country_clubs(country_id, showHidden):
-    clubs = Club.objects(Q(country_id=country_id) & Q(isHidden=showHidden))
+    clubs = Club.objects(Q(vsol_country_id=country_id) & Q(vsol_isHidden=showHidden))
     return clubs
 
 

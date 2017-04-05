@@ -27,14 +27,24 @@ class Club_status(Enum):
 
 class Club(gj.Document):
     vsol_id = db.IntField(required=True)
-    name = db.StringField(max_length=255, required=True)
-    name_eng = db.StringField(max_length=255, required=True, default='')
+    vsol_name = db.StringField(max_length=255, required=True)
+    vsol_stadium = db.StringField(max_length=255, required=True, default='')
+    vsol_logo_url = db.StringField(max_length=255, required=True, default='')
+    vsol_logo_size = db.IntField(required=True, default=0)
+    vsol_isHidden = db.BooleanField(required=True)
+    vsol_country_id = db.IntField(required=True)
+
+    last_syncronization = db.DateTimeField()
+    name = db.StringField(max_length=255, required=True, default='')
+    alt_names = db.StringField(max_length=255, required=True, default='')
+    city = db.StringField(max_length=255, required=True, default='')
+    alt_city = db.StringField(max_length=255, required=True, default='')
     stadium = db.StringField(max_length=255, required=True, default='')
-    stadium_eng = db.StringField(max_length=255, required=True, default='')
+    alt_stadium = db.StringField(max_length=255, required=True, default='')
     logo_url = db.StringField(max_length=255, required=True, default='')
     logo_size = db.IntField(required=True, default=0)
-    isHidden = db.BooleanField(required=True)
-    country_id = db.IntField(required=True)
+    transfermarkt_url = db.StringField(max_length=255, required=True, default='')
+    notes = db.StringField(max_length=1024, required=True, default='')
     status = db.StringField(max_length=255, required=True)
 
 
