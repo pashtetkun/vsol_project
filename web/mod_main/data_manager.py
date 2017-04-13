@@ -11,7 +11,8 @@ def init_actions():
     if not Settings.objects:
         settings = Settings(
             media_path='c:/media',
-            media_url='static'
+            media_url='static',
+            media_domain='http://localhost:8888'
         )
         settings.save()
 
@@ -19,11 +20,13 @@ def init_actions():
 def save_vsol_club_logo(vsol_id):
     settings = Settings.objects[0]
     bytes = parsers.get_club_logo(vsol_id)
+    url = ''
     name = ''
     size = 0
     if bytes:
         ext = imghdr.what(None, bytes)
         name = '%d.%s' % (vsol_id, ext)
+        url = '%s/%s/%s' % (settings.media_domain, settings.media_url, name)
         full_path = os.path.join(settings.media_path, 'vsol_clubs', name)
         size = len(bytes)
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
@@ -31,7 +34,7 @@ def save_vsol_club_logo(vsol_id):
             f.write(bytes)
 
     #print(Club.objects(vsol_id=vsol_id))
-    return name, size
+    return url, size
 
 
 def init_clubs_for_country(country_id):
@@ -43,19 +46,19 @@ def init_clubs_for_country(country_id):
         clubs.extend(hidden_clubs)
 
     for club in clubs:
-        image, size = save_vsol_club_logo(club['vsol_id'])
+        url, size = save_vsol_club_logo(club['vsol_id'])
         c = Club(
             vsol_id=club['vsol_id'],
             vsol_name=club['name'],
             vsol_stadium=club['stadium'],
-            vsol_logo_url=image,
+            vsol_logo_url=url,
             vsol_logo_size=size,
             vsol_isHidden=club['isHidden'],
             vsol_country_id=country_id,
             last_syncronization=datetime.datetime.now(),
             name=club['name'],
             stadium=club['stadium'],
-            logo_url=image,
+            logo_url=url,
             logo_size=size,
             status=Club_status.UNDEFINED.value
         )

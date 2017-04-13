@@ -8,6 +8,14 @@ import ReactGridLayout from 'react-grid-layout';
 
 class ClubForm extends React.Component {
 
+	renderLogo(field) {
+		return (
+			<div>
+				<img src={field.input.value} />
+			</div>
+		)
+	}
+
 	render() {
 		
 		var that = this
@@ -40,7 +48,7 @@ class ClubForm extends React.Component {
 				<form onSubmit={handleSubmit}>
 					<ReactGridLayout className="layout" layout={layout} cols={12} rowHeight={30} width={1024}>
 						<div key={'vsol_logo'}>
-							<Field name="vsol_logo_url" component="input" type="text"/>
+							<Field name="vsol_logo_url" component={this.renderLogo} />
 						</div>
 						<div key={'btn_copy_logo'}>
 							<button type="button">--></button>
