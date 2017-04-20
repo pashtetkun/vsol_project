@@ -15,6 +15,7 @@ def not_found(error):
 def index():
     return render_template('index.html')
 
+
 from web.mod_main.controllers import mod_main as main_module
 
 # Register blueprint(s)

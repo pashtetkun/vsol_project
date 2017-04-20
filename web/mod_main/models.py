@@ -8,6 +8,7 @@ from enum import Enum
 class Settings(db.Document):
     media_path = db.StringField(max_length=255, required=True)
     media_url = db.StringField(max_length=255, required=True)
+    media_clubs = db.StringField(max_length=255, required=True)
     media_domain = db.StringField(max_length=255, required=True)
 
 

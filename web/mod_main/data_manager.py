@@ -11,8 +11,9 @@ def init_actions():
     if not Settings.objects:
         settings = Settings(
             media_path='c:/media',
-            media_url='static',
-            media_domain='http://localhost:8888'
+            media_url='media',
+            media_clubs='clubs',
+            media_domain='http://localhost:5000'
         )
         settings.save()
 
@@ -26,8 +27,8 @@ def save_vsol_club_logo(vsol_id):
     if bytes:
         ext = imghdr.what(None, bytes)
         name = '%d.%s' % (vsol_id, ext)
-        url = '%s/%s/%s' % (settings.media_domain, settings.media_url, name)
-        full_path = os.path.join(settings.media_path, 'vsol_clubs', name)
+        url = '%s\%s\%s\%s' % (settings.media_domain, settings.media_url, settings.media_clubs, name)
+        full_path = os.path.join(settings.media_path, settings.media_clubs, name)
         size = len(bytes)
         os.makedirs(os.path.dirname(full_path), exist_ok=True)
         with open(full_path, 'wb') as f:
@@ -78,12 +79,12 @@ def get_club(id):
 
 if __name__ == "__main__":
 
-    '''
-    save_club_logo(697)
-    save_club_logo(2)
-    save_club_logo(12135)
-    save_club_logo(101)
-    '''
+
+    #save_vsol_club_logo(697)
+    save_vsol_club_logo(2)
+    #save_club_logo(12135)
+    #save_club_logo(101)
+
 
     #init_clubs_for_country(4)
     #init_clubs_for_country(8)
@@ -91,4 +92,4 @@ if __name__ == "__main__":
     #print(len(get_country_clubs(4, False)))
     #print(len(get_country_clubs(4, True)))
 
-    print(get_club(5772))
+    #print(get_club(5772))

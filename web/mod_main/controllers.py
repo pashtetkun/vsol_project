@@ -1,8 +1,9 @@
 ﻿# -*- coding: utf-8 -*-
-from flask import Blueprint, Response, request
+from flask import Blueprint, Response, request, send_from_directory
 from web.mod_main.models import Country
 import json
 from web.mod_main import parsers, data_manager
+import os
 
 
 mod_main = Blueprint('main', __name__, url_prefix='')
@@ -23,6 +24,16 @@ def resp(code, data):
 @mod_main.before_app_first_request
 def init_actions():
     data_manager.init_actions()
+
+
+@mod_main.route('/media/<path:directory>/<path:filename>')
+def media_url(directory, filename):
+    print("media request")
+    print("directory: " + directory)
+    print("filename: " + filename)
+    folder = os.path.join("c:\media", directory)
+    print("folder: " + folder)
+    return send_from_directory(folder, filename)
 
 
 @mod_main.route('/adminApi/countries', methods=['GET'])
