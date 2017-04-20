@@ -19,15 +19,15 @@
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "style-loader": "^0.16.1",
-    "webpack": "^2.3.3"
+    "webpack": "^2.4.1"
   },
   "dependencies": {
     "es6-promise": "^4.1.0",
     "isomorphic-fetch": "^2.2.1",
-    "material-ui": "^0.17.3",
+    "material-ui": "^0.17.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "react-grid-layout": "^0.14.4",
+    "react-grid-layout": "^0.14.6",
     "react-localization": "0.0.13",
     "react-redux": "^5.0.4",
     "react-router": "^4.1.1",
