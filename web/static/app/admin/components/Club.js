@@ -16,6 +16,11 @@ class Club extends React.Component {
 		this.props.clubActions.getClub(club_id)
 	}
 
+	componentWillUnmount(){
+		var that = this
+		this.props.clubActions.setClub(null)
+	}
+
 	submit(values) {
 		console.log(values);
 	}

@@ -2,6 +2,7 @@ import {
 	CLUB_GET_REQUEST,
 	CLUB_GET_SUCCESS,
 	CLUB_GET_FAILURE,
+	CLUB_SET_CLUB,
 } from '../constants/Club'
 
 const initialState = {
@@ -25,6 +26,11 @@ export default function clubReducer(state = initialState, action) {
 		case CLUB_GET_FAILURE:
 			return Object.assign({}, state, {
 				club: null,
+			})
+
+		case CLUB_SET_CLUB:
+			return Object.assign({}, state, {
+				club: action.payload,
 			})
 			
 		default:

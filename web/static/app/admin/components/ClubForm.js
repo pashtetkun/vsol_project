@@ -95,7 +95,7 @@ class ClubForm extends React.Component {
         				<div key={'notes'}>
         					<Field name="notes" component="input" type="textarea"/>
         				</div>
-        				<div key={'status'}>
+        				<div key={'status_label'}>
           					<label htmlFor="status">Статус</label>
         				</div>
         				<div key={'status'}>

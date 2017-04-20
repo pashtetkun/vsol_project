@@ -2,6 +2,7 @@ import {
 	CLUB_GET_REQUEST,
 	CLUB_GET_SUCCESS,
 	CLUB_GET_FAILURE,
+	CLUB_SET_CLUB,
 } from '../constants/Club'
 
 
@@ -45,5 +46,12 @@ export function getClub(club_id) {
 		  				type: CLUB_GET_FAILURE
 					})
 		  })
+	}
+}
+
+export function setClub(club) {
+	return {
+		type: CLUB_SET_CLUB,
+		payload: club,
 	}
 }
