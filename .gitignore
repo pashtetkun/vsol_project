@@ -1,6 +1,6 @@
 /.idea/
 /__pycache__/
-/venv/
+/venv_vsol/
 /web/static/node_modules/
 /web/static/dist/
 /web/__pycache__/
