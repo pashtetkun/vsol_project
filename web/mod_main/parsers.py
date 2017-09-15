@@ -56,12 +56,15 @@ def get_clubs(country_id):
     table = None
     tables = page.getroot().find_class('tbl')
 
+    '''
     for tbl in tables:
         if (len(tbl.getchildren()[0][0][0].getchildren()) == 0):
             continue
         if (tbl.getchildren()[0][0][0][0].text_content() == 'Название команды'):
             table = tbl
             break;
+    '''
+    table = tables[0]
 
     ids = []
     rows = table.getchildren()
@@ -72,10 +75,12 @@ def get_clubs(country_id):
         vsol_id = 0
         for i, col in enumerate(row):
             if (i == 0):
-                a = col.find_class('mnu')[0]
-                href = a.attrib['href']
-                vsol_id = int(href.split('=')[1])
-                break
+                continue
+
+            a = col.find_class('mnu')[0]
+            href = a.attrib['href']
+            vsol_id = int(href.split('=')[1])
+            break
 
         ids.append(vsol_id)
 
