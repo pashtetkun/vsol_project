@@ -92,6 +92,7 @@ def get_clubs(country_id):
     return clubs
 
 
+
 def get_hidden_clubs_for_country(country_name):
     clubs = []
     all_hidden_clubs = get_hidden_clubs()
